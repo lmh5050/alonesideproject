@@ -1,0 +1,5 @@
+{
+    "script": "./main.js",
+    "watch": ["./main.js"],
+    "name": "main"
+}
