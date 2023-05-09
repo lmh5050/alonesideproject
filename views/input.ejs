@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>개인 연습용 블로그</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap Icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
+        <!-- SimpleLightbox plugin CSS-->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="#page-top">Start Bootstrap</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto my-2 my-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="#about">input box</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#services">button</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#portfolio">not determine yet</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">not determine yet 2</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Masthead-->
+        <header class="masthead">
+            <div class="container px-4 px-lg-5 h-100">
+                <div>
+                <input type="number" id="num1" placeholder="숫자를 입력하세요">
+                X
+                <input type="number" id="num2" placeholder="숫자를 입력하세요">
+                <button class = "btn btn-primary btn-xl" id = "button1">= </button>
+                <input type="number" id="result" placeholder="곱한 결과가 출력됩니다" disabled>
+                </div>
+                <button>placeholder</button>
+            </div>
+        </header>
+        <!-- Footer-->
+        <footer class="bg-light py-5">
+            <div class="container px-4 px-lg-5"><div class="small text-center text-muted">Copyright &copy; 2023 - Company Name</div></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- SimpleLightbox plugin JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <!-- * *                               SB Forms JS                               * *-->
+        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    </body>
+</html>
+
+<script>
+    const num1Input = document.getElementById('num1');
+    const num2Input = document.getElementById('num2');
+    const button1 = document.getElementById('button1');
+    const button2 = document.getElementById('button2');
+    const resultInput = document.getElementById('result');
+    
+    num1Input.addEventListener('input', () => {
+        const num1Value = num1Input.value;
+        if (num1Value.startsWith('00')) {
+            num1Input.value = num1Value.slice(0, num1Value.length - 1);
+        } 
+    });
+        
+        num2Input.addEventListener('input', () => {
+        const num2Value = num2Input.value;
+        if (num2Value.startsWith('00')) {
+            num2Input.value = num2Value.slice(0, num2Value.length - 1);
+        } 
+    });
+        
+    button1.addEventListener('click', () => {
+        const num1 = Number(num1Input.value);
+        const num2 = Number(num2Input.value);
+        console.log(num1Input.value)
+        console.log(num2Input.value)
+        if(num1Input.value == '' && num2Input.value == '')
+        {
+            alert("첫번째, 두번째 인풋 박스 전부 이상합니다.")
+        }
+        else if (num1Input.value == '') {
+            alert('첫번째 인풋박스를 확인 해주세요.');
+            return;
+        }
+        else if (num2Input.value == '') {
+            alert('두번째 인풋박스를 확인 해주세요');
+            return;
+        }
+        const result = num1 * num2;
+        resultInput.value = result;
+    });
+    
+        </script>

@@ -72,3 +72,8 @@ app.get('/', async (req,res) => {
 app.get('/example', (req,res) => {
     res.render('example');
 });
+
+app.get('/input' , async (req,res) => {
+
+    res.render('input')
+});
