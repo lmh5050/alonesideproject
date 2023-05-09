@@ -1,0 +1,233 @@
+.process_state_odd{
+	background-color : #d3f2ff;
+}
+
+.process_state_odd_head{
+	background-color : #d3f2ff;
+	text-align : center;
+}
+
+.process_state_even{
+	background-color : #e0e0e0;
+}
+
+.process_state_even_head{
+	background-color : #e0e0e0;
+	text-align : center;
+}
+
+
+.default_process_setting {
+	display: flex;
+	    justify-content: space-evenly;
+}
+.default_val_split {
+	
+}
+.default_process_setting .default_vlaue{
+	margin-bottom: 10px;
+}
+.default_process_setting .default_vlaue > div {
+	display: inline-block;
+	
+}
+.default_process_setting .default_vlaue .default_process_title  {
+	margin-right: 10px;
+		color : black;
+}
+.default_process_setting .default_vlaue .default_process_title input {
+	   width: 20px;
+    height: 20px;
+    vertical-align: text-top;
+
+	accent-color: red;
+}
+.default_process_setting .default_vlaue .default_process_contents {
+	float: left;
+	    width: 100%;
+}
+.default_process_setting .default_vlaue .default_process_contents span {
+	    background: #bbd3f7;
+	color : black;
+	font-weight: bold;
+    padding: 2px 6px;
+}
+
+.default_process_setting .default_vlaue .default_process_contents input {
+	    margin-right: 14px;
+    width: 20px;
+    height: 20px;
+
+    vertical-align: text-top;
+}
+
+.default_process_setting .default_vlaue_0{
+   display: inline-block;
+   color : black;
+   padding: 0.5% 0;
+   font-weight: bold;
+}
+
+.default_process_setting .default_vlaue_0 .default_process_title  {
+ 
+	margin-right: 43px;
+}
+.default_button_box {
+	text-align: right;
+}
+
+
+/* 작업일보 시작 */
+.container_detail_contents .card-body{
+	float: left;
+}
+
+.detail_worker_left { 
+    position: relative; 
+	display: inline-block;
+    width: 21%;
+    vertical-align: top;
+}
+
+.detail_worker_right {
+	position: relative; 
+	display: inline-block;
+    width: 77%;
+	vertical-align: top;
+}
+
+.detail_worker_left > div {
+	margin-bottom: 18px;
+}
+
+.detail_worker_left div span {
+	     width: 25%;
+    display: inline-block;
+    border: 1px solid #c4c4c4;
+    border-radius: 4px;
+    padding: 1%;
+    text-align: center;
+}
+
+.detail_worker_left div select,
+.detail_worker_left div input {
+	    width: 65%;
+}
+.work_group {
+	    margin-bottom: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.work_group2 {
+    margin-bottom: 10px;
+    width: 100%;
+    height: 34px;
+    line-height: 23px; 
+}
+.work_group2 > div {
+	display: flex;
+}
+.detail_worker_right > .work_group > div{
+	display: inline-block; 
+}
+
+.detail_worker_right >.work_group_col > div >div{
+	width: 40%;
+    display: inline-block;
+}
+
+.work_group_title {
+	 display: inline-block;
+    width: 35%;
+    border: 1px solid #c4c4c4c4;
+    padding: 1%;
+	border-radius: 4px;
+    text-align: center;
+}
+
+.work_group_title2 {
+	    display: inline-block;
+    width: 15%;
+    border: 1px solid #c4c4c4c4;
+    padding: 1%;
+    border-radius: 4px;
+    text-align: center;
+    height: 34px;
+    line-height: 10px;
+
+}
+
+.detail_worker_right input[type="datetime-local"] {
+	    width: 58%;
+} 
+.work_group_subtitle {
+		 display: inline-block;
+    width: 35%;
+    border: 1px solid #c4c4c4c4;
+    padding: 1%;
+	border-radius: 4px;
+    text-align: center;
+}
+.work_sub_group {
+	display: inline-block;
+	width: 31%;
+}
+.work_group_subtitle_col {
+	 	display: inline-block;
+    width: 15%;
+    border: 1px solid #c4c4c4c4;
+    padding: 1%;
+    border-radius: 4px;
+    text-align: center;
+    height: 34px;
+    line-height: 10px;
+	    margin-bottom: 10px;
+}
+.work_group_con_30 {
+	width: 25%;
+    text-align: right;
+    padding-right: 10px;
+}
+
+.work_group_con_31 {
+	width: 25%;
+    text-align: right;
+    padding-right: 10px;
+	border-radius: 8px;
+	border-color: #dee2e6;
+}
+
+.work_group_con_100 {
+	
+}
+.flex_1{
+	    flex: 1;
+}
+.flex_2 {
+	    flex: 2;
+}
+.flex_6 {
+	flex: 6;
+	margin-left: 10px;
+}
+
+.work_group_minititle {
+	    display: inline-block;
+    width: 70%;
+    border: 1px solid #c4c4c4c4;
+    padding: 1%;
+    border-radius: 4px;
+    text-align: center;
+}
+
+/* 작업일보 끝 */
+
+
+@media print {
+  .table-responsive {
+    overflow: visible;
+  }
+}

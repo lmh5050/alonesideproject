@@ -27,22 +27,22 @@ app.listen(PORT, "0.0.0.0", () => {
   var mysql = require('mysql2');
   const { query } = require('express');
   const connection = mysql.createConnection({
-      host: 'localhost',
+      host: 'ekfkawnl.synology.me',
       user: 'root',
-      password: 'awdx4862!@',
-      database: 'side',
-      port: '3306',
+      password: 'root',
+      database: 'deg_real',
+      port: '49153',
   });
   
   connection.connect();
   
   const mysql2 = require('mysql2/promise');
   const _pool = mysql2.createPool({
-      host: 'localhost',
+      host: 'ekfkawnl.synology.me',
       user: 'root',
-      password: 'awdx4862!@',
-      database: 'side',
-      port: '3306',
+      password: 'root',
+      database: 'deg_real',
+      port: '49153',
       dateStrings: 'date',
       connectionLimit: 10,
       timezone: '+09:00',
@@ -63,7 +63,7 @@ app.listen(PORT, "0.0.0.0", () => {
       }
       return false;
   }
-
+  
 app.get('/', async (req,res) => {
     let arr = await asyncQuery(`select * from example`)
     res.render('index',{arr : arr});
