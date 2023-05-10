@@ -1,0 +1,5 @@
+@media print {
+    html, body {  width: 50mm; height: 50mm; }
+	header, footer, .no-print { display:none }
+
+  }

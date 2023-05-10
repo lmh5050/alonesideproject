@@ -1,0 +1,100 @@
+	
+        <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">MES <sup></sup></div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+	<!-- 모바일 관리 -->
+	  <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseZerominus"
+                    aria-expanded="true" aria-controls="collapseOne">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>대경 메뉴 모음</span>
+                </a>
+                <div id="collapseZerominus" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+						<a class="collapse-item" id="management_customer"onclick="url_change(id)">1. 거래처 관리</a>
+						<a class="collapse-item" id="period_outcome"onclick="url_change(id)">2. 기간별 매출현황 출력</a>
+						<a class="collapse-item" id="add_purchase"onclick="url_change(id)">3. 매입장 등록</a>
+						<a class="collapse-item" id="print_sales"onclick="url_change(id)">4. 매출원장 출력</a>
+						<a class="collapse-item" id="add_sales"onclick="url_change(id)">5. 매출장 등록</a>
+						<a class="collapse-item" id="accounts_receivable"onclick="url_change(id)">6. 미수금 현황출력</a>
+						<a class="collapse-item" id="accounts_payable"onclick="url_change(id)">7. 미지급금 현황출력</a>
+						<a class="collapse-item" id="print_transaction"onclick="url_change(id)">8. 업체별 거래집계 현황 출력</a>
+						<a class="collapse-item" id="present_transaction"onclick="url_change(id)">9. 업체별 거래현황 조회</a>
+						<a class="collapse-item" id="print_daily_sales"onclick="url_change(id)">10. 영업일보출력</a>
+						<a class="collapse-item" id="monthly_sales"onclick="url_change(id)">11. 월별 거래 집계표</a>
+						<a class="collapse-item" id="print_monthly_sales"onclick="url_change(id)">12. 월별 거래집계현황 출력</a>
+						<a class="collapse-item" id="daily_sales"onclick="url_change(id)">13. 일자별 거래집계표</a>
+						<a class="collapse-item" id="present_daily_sales"onclick="url_change(id)">14. 일자별 거래현황 조회</a>
+						<a class="collapse-item" id="add_inandoutcome"onclick="url_change(id)">15. 입출금 등록</a>
+                    </div>
+                </div>
+        </li>    
+
+
+	<!-- Admin 관리 -->
+<!--
+	  <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseZerominus"
+                    aria-expanded="true" aria-controls="collapseOne">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Admin 관리</span>
+                </a>
+                <div id="collapseZerominus" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+						 
+						
+						<a class="collapse-item" id="management_memeber"onclick="url_change(id)">회원 관리</a>
+						<a class="collapse-item" id="lookup_project" onclick="alert('개발중인화면입니다')">프로젝트 현황</a>
+						<a class="collapse-item" id="management_product"onclick="url_change(id)">상품 관리</a>
+						<a class="collapse-item" id="management_product"onclick="url_change(id)">상품 관리(보류)</a>
+						
+						<a class="collapse-item" id="management_memeber"onclick="url_change(id)">회원 관리</a>
+						<a class="collapse-item" id="lookup_project"onclick="url_change(id)">4. 프로젝트 현황</a>
+						
+                    </div>
+                </div>
+        </li>    
+-->
+	
+<script>
+	const id_url = '';
+	function url_change(id) {
+		window.location.href = '/'+id
+		id_url = id;
+	};
+	
+	$(document).ready(function() {
+		if(window.location.pathname == '/management_customer'){$("#head_menu").append("모바일용 테스트");$("#display_menu").append("1.거래처 관리");}
+		if(window.location.pathname == '/period_outcome'){$("#head_menu").append("모바일용 테스트");$("#display_menu").append("2.기간별 매출 현황 출력");}
+		if(window.location.pathname == '/add_purchase'){$("#head_menu").append("Admin 관리");$("#display_menu").append("3. 매입장 등록");}
+		if(window.location.pathname == '/print_sales'){$("#head_menu").append("Admin 관리");$("#display_menu").append("4. 매출원장 출력");}
+		if(window.location.pathname == '/add_sales'){$("#head_menu").append("Admin 관리");$("#display_menu").append("5. 매출장 등록");}
+		if(window.location.pathname == '/accounts_receivable'){$("#head_menu").append("기준 정보");$("#display_menu").append("6. 미수금 현황출력");}
+		if(window.location.pathname == '/accounts_payable'){$("#head_menu").append("제품 관리");$("#display_menu").append("7. 미지급금 현황출력");}
+		if(window.location.pathname == '/print_transaction'){$("#head_menu").append("제품 관리");$("#display_menu").append("8. 업체별 거래집계 현황 출력");}
+		if(window.location.pathname == '/present_transaction'){$("#head_menu").append("제품 관리");$("#display_menu").append("9. 업체별 거래현황 조회");}
+		if(window.location.pathname == '/print_daily_sales'){$("#head_menu").append("생산 관리");$("#display_menu").append("10. 영업일보출력");}
+		if(window.location.pathname == '/monthly_sales'){$("#head_menu").append("생산 관리");$("#display_menu").append("11. 월별 거래 집계표");}
+		if(window.location.pathname == '/print_monthly_sales'){$("#head_menu").append("생산 관리");$("#display_menu").append("12. 월별 거래집계현황 출력");}
+		if(window.location.pathname == '/daily_sales'){$("#head_menu").append("생산 관리");$("#display_menu").append("13. 일자별 거래집계표");}
+		if(window.location.pathname == '/present_daily_sales'){$("#head_menu").append("생산 관리");$("#display_menu").append("14. 일자별 거래현황 조회");}
+		if(window.location.pathname == '/add_inandoutcome'){$("#head_menu").append("설비 관리");$("#display_menu").append("15. 입출금 등록");}
+		
+		
+		
+	});
+
+	
+</script>

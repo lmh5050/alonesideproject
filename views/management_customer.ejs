@@ -23,6 +23,7 @@
   <script src="vendor/datatables/gyu/jquery-3.5.1.js"></script>
   <script src="vendor/datatables/gyu/jquery.dataTables.min.js"></script>
   <script src="vendor/datatables/gyu/dataTables.select.min.js"></script>
+  <script src="js/main_content.js"></script>
 
   <link href="vendor/datatables/gyu/jquery.dataTables.min.css" rel="stylesheet">
   <link href="vendor/datatables/gyu/dataTables.select.min.css" rel="stylesheet">
@@ -33,7 +34,24 @@
   <!-- <script src="vendor/datatables/gyu/dataTables.buttons.min.js"></script>
   <link href="vendor/datatables/gyu/buttons.dataTables.min.css" rel="stylesheet"> -->
 
+<style>
+#order_data_table td input[type="checkbox"] {
+  display: block;
+  margin: 0 auto;
+  transform: scale(1.5); /* 크기 조정 */
+}
 
+#order_data_table th input[type="checkbox"] {
+  display: block;
+  margin: 0 auto;
+  transform: scale(1.5); /* 크기 조정 */
+}
+
+th.no-sort {
+  cursor: default;
+}
+
+</style>
 
 </head>
 
@@ -47,7 +65,7 @@
 
 
       <!-- Nav Item - Pages Collapse Menu -->
-	  <%-include('../sidebar.ejs')%>
+	  <%-include('./sidebar.ejs')%>
       <!-- Nav Item - Utilities Collapse Menu -->
 
 
@@ -67,7 +85,7 @@
       <div id="content">
 
           <!-- Topbar -->
-        <%-include('../topbar.ejs')%>
+        <%-include('./topbar.ejs')%>
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
@@ -90,71 +108,71 @@
 					</tr> 
 					 
                     <tr>
-					<th style="text-align: center; vertical-align: middle;">업체코드</th>
-				    <th ><input type ="text" class = "form-control" disabled></th>
-					<th style="text-align: center; vertical-align: middle;">업체구분</th>
+					<th style="text-align: center; vertical-align: middle;" >업체코드</th>
+				    <th ><input type ="text" class = "form-control" id ="code"></th>
+					<th style="text-align: center; vertical-align: middle;" >업체구분</th>
 				    <th> 
-						<select id="classify" name="classify" class = "form-control" >
+						<select id ="division" name="classify" class = "form-control" >
 						<option value=""></option>
-						<option value="good">ACCEPT</option>
-						<option value="bad">REJECT</option>
+						<option value="내부">내부</option>
+						<option value="외부">외부</option>
 					  	</select>
 					</th>
 					<th colspan ="2"></th>	
 					</tr> 
 					<tr>
-					<th  style="text-align: center; vertical-align: middle;">약식상호</th>
-				    <th ><input type ="text" class = "form-control" ></th>	
+					<th  style="text-align: center; vertical-align: middle;" >약식상호</th>
+				    <th ><input type ="text" class = "form-control" id ="nickname"></th>	
 					<th colspan ="2"></th>		
-					<th  style="text-align: center; vertical-align: middle;">정식상호</th>
-				    <th ><input type ="text" class = "form-control" ></th>		
+					<th  style="text-align: center; vertical-align: middle;" >정식상호</th>
+				    <th ><input type ="text" class = "form-control" id ="company"></th>		
 					</tr>
 					<tr>
-					<th style="text-align: center; vertical-align: middle;">대표자명</th>
-				    <th><input type ="text" class = "form-control" ></th>
+					<th style="text-align: center; vertical-align: middle;" >대표자명</th>
+				    <th><input type ="text" class = "form-control" id ="ceo"></th>
 				    <th style="text-align: center; vertical-align: middle;">단가적용</th>
 				    <th> 
-						<select id="classify" name="classify" class = "form-control" >
+						<select id="cost" name="classify" class = "form-control" >
 						<option value=""></option>
 						<option value="A">A</option>
 						<option value="B">B</option>
 						<option value="C">C</option>
 					  	</select>
 					</th>
-					<th  style="text-align: center; vertical-align: middle;">대표전화</th>
-				    <th ><input type ="text" class = "form-control" ></th>		
+					<th  style="text-align: center; vertical-align: middle;" >대표전화</th>
+				    <th ><input type ="text" class = "form-control" id ="tel"></th>		
 					</tr> 
 					<tr>
-				    <th style="text-align: center; vertical-align: middle;">기타전화</th>
-				    <th ><input type ="text" class = "form-control" value = "" ></th>	
+				    <th style="text-align: center; vertical-align: middle;" >기타전화</th>
+				    <th ><input type ="text" class = "form-control" value = "" id ="ect_tel"></th>	
 					<th colspan ="2" rowspan = "6"></th>		
-					<th  style="text-align: center; vertical-align: middle;">팩스번호</th>
-				    <th ><input type ="text" class = "form-control" ></th>	
+					<th  style="text-align: center; vertical-align: middle;" >팩스번호</th>
+				    <th ><input type ="text" class = "form-control"id ="fax" ></th>	
 
 					</tr>   
 					<tr>
-				    <th style="text-align: center; vertical-align: middle;">등록번호</th>
-				    <th><input type ="text" class = "form-control" ></th>		
+				    <th style="text-align: center; vertical-align: middle;" >등록번호</th>
+				    <th><input type ="text" class = "form-control" id ="reg_no"></th>		
 					<th style="text-align: center; vertical-align: middle;">등록일자</th>
-				    <th><input type ="text" class = "form-control" value = "등록된 데이터 매핑" disabled ></th>	
+				    <th><input type ="text" class = "form-control" value = "" id = "reg_date" disabled ></th>	
 					</tr>
 				    <tr>
 					<th style="text-align: center; vertical-align: middle;">업태</th>
-				    <th ><input type ="text" class = "form-control"></th>
+				    <th ><input type ="text" class = "form-control" id="occupation"></th>
 				    <th style="text-align: center; vertical-align: middle;">종목</th>
-				    <th><input type ="text" class = "form-control"></th>
+				    <th><input type ="text" class = "form-control" id="event"></th>
 					</tr> 
 					<tr>
 					<th style="text-align: center; vertical-align: middle;">사업장 주소</th>
-				    <th ><input type ="text" class = "form-control"></th>
+				    <th ><input type ="text" class = "form-control" id="address"></th>
 				    <th style="text-align: center; vertical-align: middle;" rowspan ="2">기타 사항</th>
 				    <th rowspan="2" style="text-align: center; vertical-align: middle;">
-					<input type="text" class="form-control" style="width: 100%; height: 100%; padding:2.0rem;">
+					<input type="text" class="form-control" style="width: 100%; height: 100%; padding:2.0rem;" id="ect">
 					</th>
 					</tr>
 					<tr>
-					<th style="text-align: center; vertical-align: middle;">담당자명</th>
-				    <th ><input type ="text" class = "form-control"></th>
+					<th style="text-align: center; vertical-align: middle;" >담당자명</th>
+				    <th ><input type ="text" class = "form-control" id ="charge"></th>
 					</tr>   
                   </thead>
                   <tbody>
@@ -162,11 +180,14 @@
               </table>
 							
 						<div style="display: flex; flex-direction: row; width: 100%; margin-bottom: 10px;justify-content: flex-end;">
-						  <div style="display: flex; flex-direction: row;  margin-bottom: 10px; ">
-							<button class="btn btn-primary">
-							  저장
-							</button>
-						  </div>
+						  <div style="display: flex; flex-direction: row; width: 100%; margin-bottom: 10px; justify-content: space-between;">
+							  <div>
+								<button class="btn btn-primary" onclick="reset()">초기화</button>
+							  </div>
+							  <div>
+								<button class="btn btn-primary" id = "saveButton" onclick="save()">저장</button>
+							  </div>
+							</div>
 						</div>
 						<h2 class="m-0 font-weight-bold text-primary" >거래처 기초 자료 등록 현황</h2>	
 						<table style="float:right; margin-top:10px ; margin-bottom:10px">
@@ -180,23 +201,21 @@
 						<button class="btn btn-primary">업체구분</button>
 						</th>
 						<th>
-						<input type = "text" class = "form-control">	
+						<input type = "text" class = "form-control" id = "searchbox">	
 						</th>
 						<th>
-						<button class="btn btn-success">조회</button>
+						<button class="btn btn-success" >조회</button>
 						</th>	
 						</tr>
 						</table>
 						
-					
-						
-					
+						<%=row[0].code%>
                             <div class="table-responsive">
 								<form action="/employee_info_delete" name="list_form" id="list_form" method="post">
                                 <table class="table table-bordered" id="order_data_table" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-											<th style="width:3%;"><input type="checkbox" name="chAll" id="chAll"></th>	
+											<th style="width:3%; vertical-align: middle;"><input type="checkbox" name="chAll" id="chAll"></th>	
                                             <th>코드</th>
                                             <th>정식상호명</th>
                                             <th>대표자명</th>
@@ -209,27 +228,18 @@
                                     </thead>
                          
                                     <tbody>
-									<tr>
-										<td></td>
-										<td>200002</td>	
-										<td>고려정공</td>
-										<td>이동규</td>
-										<td></td>
-										<td>010-7148-7114</td>	
-										<td>353-7116</td>
-										<td>대구광역시 북구 노원로 40길 8-5</td>
-									</tr>
-										
-									<tr>
-										<td></td>
-										<td>200003</td>	
-										<td>주식회사 가을이엔지</td>
-										<td>김순화</td>
-										<td>355-7522</td>
-										<td></td>	
-										<td>352-9640</td>
-										<td>대구시 북구 3공단로 27길 21-2(노원 3가)</td>
-									</tr>
+										<% for (let i = 0; i < row.length; i++) { %>
+											<tr>
+											  <td style="vertical-align: middle;"><input type="checkbox"></td>
+											  <td><%= row[i].code %></td>
+											  <td><%= row[i].company %></td>
+											  <td><%= row[i].ceo %></td>
+											  <td><%= row[i].tel %></td>
+											  <td><%= row[i].ect_tel %></td>
+											  <td><%= row[i].fax %></td>
+											  <td><%= row[i].address %></td>
+											</tr>
+										  <% } %>
 									
                                     </tbody>
                                 </table>
@@ -288,18 +298,189 @@
   <!-- <script src="js/demo/datatables-demo.js"></script> -->
 
 
-  <script>
-	  document.getElementById('management_customer').style.background='khaki';
-	  
-	  $(document).ready(function() {
-      table = $('#order_data_table').DataTable({
-        pageLength: 10,
-        lengthMenu: [1, 5, 10, 20, 50, 100],
-        select: {
-          style: 'single'
-        },
-		searching:false})
+    <script>
+	var dataTable;	
+
+
+	document.getElementById('management_customer').style.background='khaki'; // 사이드바 불 들어오게 하는 함수
+	
+	$(document).ready(function() {
+	dataTable  = $('#order_data_table').DataTable({
+	pageLength: 10,
+	lengthMenu: [1, 5, 10, 20, 50, 100],
+	select: {
+		style: 'single'
+	},
+	searching:false,
+	columnDefs: [{
+			targets: [0],
+			className: 'no-sort',
+			orderable: false
+			}],
+			order: [] // 초기 정렬 순서를 비활성화
 	});
+	});
+
+	$('#order_data_table tbody').on('click', 'tr', function() {
+    var selectedRowData = dataTable.row(this).data();
+    var SecondColumnValue = selectedRowData[1];
+	let submit_args = '';
+			submit_args += commonFunc.makeArgs("code",SecondColumnValue );
+			const ret = commonFunc.postArgs("/customer_search", submit_args);
+			document.getElementById("code").value = ret.customer_search_row[0].code;
+			document.getElementById("division").value = ret.customer_search_row[0].division;
+			document.getElementById("company").value = ret.customer_search_row[0].company;
+			document.getElementById("nickname").value = ret.customer_search_row[0].nickname;
+			document.getElementById("ceo").value = ret.customer_search_row[0].ceo;
+			document.getElementById("tel").value = ret.customer_search_row[0].tel;
+			document.getElementById("cost").value = ret.customer_search_row[0].cost;
+			document.getElementById("ect_tel").value = ret.customer_search_row[0].ect_tel;
+			document.getElementById("fax").value = ret.customer_search_row[0].fax;
+			document.getElementById("reg_no").value = ret.customer_search_row[0].reg_no;
+			document.getElementById("reg_date").value = ret.customer_search_row[0].reg_date;
+			document.getElementById("occupation").value = ret.customer_search_row[0].occupation;
+			document.getElementById("event").value = ret.customer_search_row[0].event;
+			document.getElementById("address").value = ret.customer_search_row[0].address;
+			document.getElementById("charge").value = ret.customer_search_row[0].charge;
+			document.getElementById("ect").value = ret.customer_search_row[0].ect;
+			disabledInputs()
+			change_modify_button()
+			
+  	});
+
+
+	//테이블 설정 기능
+	$('#order_data_table tbody').on('click', 'input[type="checkbox"]', function(e) {
+	e.stopPropagation(); // 이벤트 전파 중단(체크박스)
+	});
+
+	$('#order_data_table tbody').on('click', 'td:has(input[type="checkbox"])', function(e) {
+	e.stopPropagation(); // 이벤트 전파 중단(체크박스포함td)
+	});
+
+	//여기서부터 날짜시작
+  	var today = new Date(); // 현재 시간을 나타내는 Date 객체 생성
+    var year = today.getFullYear(); // 현재 연도 가져오기
+    var month = today.getMonth() + 1; // 현재 월 (0부터 시작하므로 +1)
+    var day = today.getDate(); // 현재 일
+
+    // 날짜가 한 자리 숫자인 경우 앞에 0을 붙여서 두 자리로 만들기
+    if (month < 10) {
+    month = '0' + month;
+    }
+    if (day < 10) {
+    day = '0' + day;
+    }
+    var currentDate = year + '-' + month + '-' + day; // YYYY-MM-DD 형식으로 날짜 생성
+    document.getElementById('reg_date').value = currentDate; // 오늘 날짜를 input 요소의 value 속성에 할당
+	//날짜끝 + 날짜 데이터 넣는거
+
+	//reset 버튼 시작
+	function reset() {
+		resetInputs();
+		resetDataTableSelection();
+		change_save_button();
+		ableInputs();
+  }
+
+  function resetInputs() {
+    var inputs = document.querySelectorAll('input:not(#searchbox):not(#reg_date)');
+    inputs.forEach(function(input) {
+      input.value = '';
+    });
+  }
+
+  function resetDataTableSelection() {
+    // DataTable 선택 해제
+    dataTable.rows().deselect();
+	dataTable.column(0).nodes().to$().find('input[type="checkbox"]').prop('checked', false);
+	$('#order_data_table th input[type="checkbox"]').prop('checked', false);
+  }
+  //reset 버튼 끝
+
+  function change_modify_button() //tr 클릭시 수정 버튼으로 바꾸는 함수
+  {
+	var modifyButton = document.getElementById("saveButton");
+				modifyButton.innerHTML = "수정";
+				modifyButton.className = "btn btn-success";
+				modifyButton.onclick = modify;
+  }
+
+  function change_save_button() // 초기화 클릭시 저장 버튼으로 바꾸는 코드
+  {
+	var saveButton = document.getElementById("saveButton");
+				saveButton.innerHTML = "저장";
+				saveButton.className = "btn btn-primary";
+				saveButton.onclick = save;
+  }
+
+  function disabledInputs() { //클릭시 뜨는 내용 인풋박스 전부다 disabled 되는 함수
+    var inputs = document.querySelectorAll('input:not(#searchbox):not(#reg_date)');
+    inputs.forEach(function(input) {
+		input.disabled = true;
+    });
+  }
+
+  function ableInputs(){
+	var inputs = document.querySelectorAll('input:not(#searchbox):not(#reg_date)');
+	inputs.forEach(function(input) {
+  input.disabled = false;
+	});
+  }
+  
+  function save() {
+		let submit_args = '';
+			submit_args += commonFunc.makeArgs("code", $("#code").val());
+			submit_args += commonFunc.makeArgs("division", $("#division").val());
+			submit_args += commonFunc.makeArgs("company", $("#company").val());
+			submit_args += commonFunc.makeArgs("nickname", $("#nickname").val());
+			submit_args += commonFunc.makeArgs("ceo", $("#ceo").val());
+			submit_args += commonFunc.makeArgs("tel", $("#tel").val());
+			submit_args += commonFunc.makeArgs("cost", $("#cost").val());
+			submit_args += commonFunc.makeArgs("ect_tel", $("#ect_tel").val());
+			submit_args += commonFunc.makeArgs("fax", $("#fax").val());
+			submit_args += commonFunc.makeArgs("reg_no", $("#reg_no").val());
+			submit_args += commonFunc.makeArgs("reg_date", $("#reg_date").val());
+			submit_args += commonFunc.makeArgs("occupation", $("#occupation").val());
+			submit_args += commonFunc.makeArgs("event", $("#event").val());
+			submit_args += commonFunc.makeArgs("address", $("#address").val());
+			submit_args += commonFunc.makeArgs("charge", $("#charge").val());
+			submit_args += commonFunc.makeArgs("ect", $("#ect").val());
+			const ret = commonFunc.postArgs("/customer_save", submit_args);
+			console.log(submit_args)
+	
+	}
+
+	function modify(){
+		ableInputs()
+		var modify_save = document.getElementById("saveButton");
+		modify_save.innerHTML = "수정(저장)";
+		modify_save.className = "btn btn-primary";
+		modify_save.id = "modify_save";
+	}
+
+	function modify_save(){
+		let submit_args = '';
+			submit_args += commonFunc.makeArgs("code", $("#code").val());
+			submit_args += commonFunc.makeArgs("division", $("#division").val());
+			submit_args += commonFunc.makeArgs("company", $("#company").val());
+			submit_args += commonFunc.makeArgs("nickname", $("#nickname").val());
+			submit_args += commonFunc.makeArgs("ceo", $("#ceo").val());
+			submit_args += commonFunc.makeArgs("tel", $("#tel").val());
+			submit_args += commonFunc.makeArgs("cost", $("#cost").val());
+			submit_args += commonFunc.makeArgs("ect_tel", $("#ect_tel").val());
+			submit_args += commonFunc.makeArgs("fax", $("#fax").val());
+			submit_args += commonFunc.makeArgs("reg_no", $("#reg_no").val());
+			submit_args += commonFunc.makeArgs("reg_date", $("#reg_date").val());
+			submit_args += commonFunc.makeArgs("occupation", $("#occupation").val());
+			submit_args += commonFunc.makeArgs("event", $("#event").val());
+			submit_args += commonFunc.makeArgs("address", $("#address").val());
+			submit_args += commonFunc.makeArgs("charge", $("#charge").val());
+			submit_args += commonFunc.makeArgs("ect", $("#ect").val());
+			const ret = commonFunc.postArgs("/modify_save", submit_args);
+			alert("방방")
+			console.log(submit_args)
+	}
   </script>
 </body>
 

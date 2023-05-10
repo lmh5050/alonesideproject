@@ -12,6 +12,7 @@ const PORT = 3001; // 포트 번호
 app.use('/js', express.static(path.join(__dirname, '/js'))); //js 폴더 경로 설정
 app.use('/css', express.static(path.join(__dirname, '/css'))); //css 폴더 경로 설정
 app.use('/img', express.static(path.join(__dirname, '/img'))); // img 폴더 경로 설정
+app.use("/vendor", express.static(path.join(__dirname, "/vendor")));//vendor 폴더 경로 설정
 app.use(cookieParser()); //cookieParser사용
 
 app.use(express.json());
@@ -63,12 +64,162 @@ app.listen(PORT, "0.0.0.0", () => {
       }
       return false;
   }
-  
+  app.get('/', async (req,res) => {
+    let row = await asyncQuery(`SELECT code,
+                                        company,
+                                        ceo,
+                                        tel,
+                                        ect_tel,
+                                        fax,                    
+                                        address
+                                FROM customer_info`)
+    res.render('management_customer',{row : row});
+}); 
+
+app.post("/customer_search", async (req, res) => {
+    let customer_search_row = await asyncQuery(`SELECT code,
+                                                        division,
+                                                        company,
+                                                        nickname,
+                                                        ceo,
+                                                        tel,
+                                                        cost,
+                                                        ect_tel,
+                                                        fax,
+                                                        reg_no,
+                                                        DATE_FORMAT(reg_date, '%Y-%m-%d') AS reg_date,
+                                                        occupation,
+                                                        event,
+                                                        address,
+                                                        charge,
+                                                        ect
+                                                 FROM customer_info
+                                                 WHERE code ='${req.body.code}'`)                                     
+res.send({customer_search_row: customer_search_row});
+});
+
+app.post("/customer_save", async (req, res) => {
+    let customer_save_row = await asyncQuery(`INSERT INTO customer_info (code,
+                                                                         division,
+                                                                         company,
+                                                                         nickname,
+                                                                         ceo,
+                                                                         tel,
+                                                                         cost,
+                                                                         ect_tel,
+                                                                         fax,
+                                                                         reg_no,
+                                                                         reg_date,
+                                                                         occupation,
+                                                                         event,
+                                                                         address,
+                                                                         charge,
+                                                                         ect)
+                                                VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+                                                [
+                                                  req.body.code,
+                                                  req.body.division,
+                                                  req.body.nickname,
+                                                  req.body.company,
+                                                  req.body.ceo,
+                                                  req.body.tel,
+                                                  req.body.cost,
+                                                  req.body.ect_tel,
+                                                  req.body.fax,
+                                                  req.body.reg_no,
+                                                  req.body.reg_date,
+                                                  req.body.occupation,
+                                                  req.body.event,
+                                                  req.body.address,
+                                                  req.body.charge,
+                                                  req.body.ect
+                                                ])
+res.send('y');
+});
+
+app.post("/modify_save", async (req, res) => {
+    console.log(req.body)
+    let customer_save_row = await asyncQuery(`UPDATE customer_info 
+                                              SET (code = ?,
+                                                   division = ?,
+                                                   company = ?,
+                                                   nickname = ?,
+                                                   ceo = ?,
+                                                   tel = ?,
+                                                   cost = ?,
+                                                   ect_tel = ?,
+                                                   fax = ?,
+                                                   reg_no = ?,
+                                                   reg_date = ?,
+                                                   occupation = ?,
+                                                   event = ?,
+                                                   address = ?,
+                                                   charge = ?,
+                                                   ect = ?)
+                                                WHERE code = '${req.body.code}'`,
+                                                [
+                                                  req.body.code,
+                                                  req.body.division,
+                                                  req.body.nickname,
+                                                  req.body.company,
+                                                  req.body.ceo,
+                                                  req.body.tel,
+                                                  req.body.cost,
+                                                  req.body.ect_tel,
+                                                  req.body.fax,
+                                                  req.body.reg_no,
+                                                  req.body.reg_date,
+                                                  req.body.occupation,
+                                                  req.body.event,
+                                                  req.body.address,
+                                                  req.body.charge,
+                                                  req.body.ect
+                                                ])
+res.send('y');
+});
+/*
+app.post("/laiser_select", async (req, res) => {
+	 let selected_row_wait = await asyncQuery(`SELECT b.no,
+											   b.file_name,
+											   b.key_no,
+											   a.shipping_date,
+											   a.work_no,
+											   b.quality,
+											   b.thickness,
+											   b.materials_max,
+											   a.status 
+										FROM     tech_in.process as a
+										LEFT JOIN	tech_in.operation as b
+										ON a.key_no  = b.key_no 
+										WHERE a.key_no = '${req.body.key_no}' and a.status = 10
+				   `)
+	  let selected_row_ing = await asyncQuery(`SELECT b.no,
+											   b.file_name,
+											   b.key_no,
+											   a.shipping_date,
+											   a.work_no,
+											   b.quality,
+											   b.thickness,
+											   b.materials_max,
+											   a.status 
+										FROM     tech_in.process as a
+										LEFT JOIN	tech_in.operation as b
+										ON a.key_no  = b.key_no 
+										WHERE a.key_no = '${req.body.key_no}' and a.status = 11
+				   `)
+	
+res.send({
+        selected_row_wait: selected_row_wait,
+        selected_row_ing: selected_row_ing
+    });
+});
+*/
+/*  
 app.get('/', async (req,res) => {
     let arr = await asyncQuery(`select * from example`)
     res.render('index',{arr : arr});
 });
-
+*/
 app.get('/example', (req,res) => {
     res.render('example');
 });
