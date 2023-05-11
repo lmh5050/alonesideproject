@@ -76,6 +76,51 @@ app.listen(PORT, "0.0.0.0", () => {
     res.render('management_customer',{row : row});
 }); 
 
+app.get('/management_customer', async (req,res) => {
+    let row = await asyncQuery(`SELECT code,
+                                        company,
+                                        ceo,
+                                        tel,
+                                        ect_tel,
+                                        fax,                    
+                                        address
+                                FROM customer_info`)
+    res.render('management_customer',{row : row});
+}); 
+
+app.get('/management_customer_detail/:process/:value', async (req, res) => {
+	console.log('process' + req.params.process);
+	console.log('value' + req.params.value);
+	
+	let process = req.params.process;
+	let value = req.params.value;
+	
+	let sql = 'SELECT a.no, a.code, a.division , a.company , a.nickname , a.ceo , a.tel , a.cost , a.ect_tel , a.fax , a.reg_no , DATE_FORMAT(reg_date, "%Y-%m-%d") as reg_date, a.occupation , a.event , a.address , a.charge , a.ect , a.updatetime  from erp_dg.customer_info a	';										   
+	let where_add = '';							
+	let order_by_add = ' ORDER BY (no) DESC';		
+	
+	if(process==1){
+		where_add = " where a.code like '%" + value + "%'";
+	}else if(process==2){
+		where_add = " where a.nickname like '%" + value + "%'";		
+	}else if(process==3){		
+		where_add = " where a.company like '%" + value + "%'";		
+	}else if(process==4){		
+		where_add = " where a.ceo like '%" + value + "%'";		
+	}else if(process==5){		
+		where_add = " where a.tel like '%" + value + "%'";		
+	}else if(process==6){		
+		where_add = " where a.division like '%" + value + "%'";		
+	}		
+	let sql2 = sql + where_add + order_by_add;
+	
+	let row = await asyncQuery(sql2);
+	
+	console.log("sql2:" + sql2);
+	
+	res.render('management_customer_detail',{row:row,process:process,value:value});
+});
+
 app.post("/customer_search", async (req, res) => {
     let customer_search_row = await asyncQuery(`SELECT code,
                                                         division,
@@ -140,41 +185,24 @@ res.send('y');
 app.post("/modify_save", async (req, res) => {
     console.log(req.body)
     let customer_save_row = await asyncQuery(`UPDATE customer_info 
-                                              SET (code = ?,
-                                                   division = ?,
-                                                   company = ?,
-                                                   nickname = ?,
-                                                   ceo = ?,
-                                                   tel = ?,
-                                                   cost = ?,
-                                                   ect_tel = ?,
-                                                   fax = ?,
-                                                   reg_no = ?,
-                                                   reg_date = ?,
-                                                   occupation = ?,
-                                                   event = ?,
-                                                   address = ?,
-                                                   charge = ?,
-                                                   ect = ?)
-                                                WHERE code = '${req.body.code}'`,
-                                                [
-                                                  req.body.code,
-                                                  req.body.division,
-                                                  req.body.nickname,
-                                                  req.body.company,
-                                                  req.body.ceo,
-                                                  req.body.tel,
-                                                  req.body.cost,
-                                                  req.body.ect_tel,
-                                                  req.body.fax,
-                                                  req.body.reg_no,
-                                                  req.body.reg_date,
-                                                  req.body.occupation,
-                                                  req.body.event,
-                                                  req.body.address,
-                                                  req.body.charge,
-                                                  req.body.ect
-                                                ])
+                                              SET code = '${req.body.code}',
+                                                   division = '${req.body.division}',
+                                                   company = '${req.body.nickname}',
+                                                   nickname = '${req.body.company}',
+                                                   ceo = '${req.body.ceo}',
+                                                   tel = '${req.body.tel}',
+                                                   cost = '${req.body.cost}',
+                                                   ect_tel = '${req.body.ect_tel}',
+                                                   fax = '${req.body.fax}',
+                                                   reg_no = '${req.body.reg_no}',
+                                                   reg_date = '${req.body.reg_date}',
+                                                   occupation = '${req.body.occupation}',
+                                                   event = '${req.body.event}',
+                                                   address = '${req.body.address}',
+                                                   charge = '${req.body.charge}',
+                                                   ect = '${req.body.ect}'
+                                                WHERE code = '${req.body.code}'`
+                                                )
 res.send('y');
 });
 /*

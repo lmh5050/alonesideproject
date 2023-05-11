@@ -12,23 +12,22 @@
   <title>MES</title>
 
   <!-- Custom fonts for this template -->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="../../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
 
   <!-- Custom styles for this page -->
   <!-- <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet"> -->
-  <script src="vendor/datatables/gyu/jquery-3.5.1.js"></script>
-  <script src="vendor/datatables/gyu/jquery.dataTables.min.js"></script>
-  <script src="vendor/datatables/gyu/dataTables.select.min.js"></script>
-  <script src="js/main_content.js"></script>
+  <script src="../../vendor/datatables/gyu/jquery-3.5.1.js"></script>
+  <script src="../../vendor/datatables/gyu/jquery.dataTables.min.js"></script>
+  <script src="../../vendor/datatables/gyu/dataTables.select.min.js"></script>
 
-  <link href="vendor/datatables/gyu/jquery.dataTables.min.css" rel="stylesheet">
-  <link href="vendor/datatables/gyu/dataTables.select.min.css" rel="stylesheet">
+  <link href="../../vendor/datatables/gyu/jquery.dataTables.min.css" rel="stylesheet">
+  <link href="../../vendor/datatables/gyu/dataTables.select.min.css" rel="stylesheet">
 
-  <script src="vendor/datatables/gyu/qrcode.min.js"></script>
+  <script src="../../vendor/datatables/gyu/qrcode.min.js"></script>
   <!-- <link href="vendor/datatables/gyu/qr_print.css" media="print" rel="stylesheet" /> -->
 
   <!-- <script src="vendor/datatables/gyu/dataTables.buttons.min.js"></script>
@@ -92,13 +91,13 @@ th.no-sort {
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800" id = "head_menu"></h1>
+          <h1 class="h3 mb-2 text-gray-800" id = "head_menu">모바일용 테스트</h1>
 
           <!-- DataTales Example -->
            <div class="card shadow mb-4">
                         
    			<div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary" id = "display_menu"></h6>
+              <h6 class="m-0 font-weight-bold text-primary" id = "display_menu">1.거래처 관리</h6>
             </div>
 			<div class="card-body">
 				<table class="table table-bordered" style="width:100%;" cellspacing="0">
@@ -178,6 +177,8 @@ th.no-sort {
                   <tbody>
                   </tbody>
               </table>
+				<input type="hidden" value="<%=process%>" id="param_process">
+				<input type="hidden" value="<%=value%>" id="param_value">
 							
 						<div style="display: flex; flex-direction: row; width: 100%; margin-bottom: 10px;justify-content: flex-end;">
 						  <div style="display: flex; flex-direction: row; width: 100%; margin-bottom: 10px; justify-content: space-between;">
@@ -185,7 +186,7 @@ th.no-sort {
 								<button class="btn btn-primary" onclick="reset()">초기화</button>
 							  </div>
 							  <div>
-								<button class="btn btn-primary" id = "saveButton" onclick="save()">저장</button>
+								<button class="btn btn-primary" onclick="save()">저장</button>
 							  </div>
 							</div>
 						</div>
@@ -193,12 +194,12 @@ th.no-sort {
 						<table style="float:right; margin-top:10px ; margin-bottom:10px">
 						<tr>
 						<th>
-						<button class="btn btn-primary" id = "process_name_1" onclick= "click_select('1')">코드</button>
-						<button class="btn btn-secondary" id = "process_name_2" onclick= "click_select('2')">약식상호</button>
-						<button class="btn btn-secondary" id = "process_name_3" onclick= "click_select('3')">정식상호</button>
-						<button class="btn btn-secondary" id = "process_name_4" onclick= "click_select('4')">대표자명</button>
-						<button class="btn btn-secondary" id = "process_name_5" onclick= "click_select('5')">대표전화</button>
-						<button class="btn btn-secondary" id = "process_name_6" onclick= "click_select('6')">업체구분</button>
+							<button class="btn btn-primary" id = "process_name_1" onclick= "click_select('1')">코드순</button>
+							<button class="btn btn-secondary" id = "process_name_2" onclick= "click_select('2')">상호순(약)</button>
+							<button class="btn btn-secondary" id = "process_name_3" onclick= "click_select('3')">상호순(정)</button>
+							<button class="btn btn-secondary" id = "process_name_4" onclick= "click_select('4')">대표자명</button>
+							<button class="btn btn-secondary" id = "process_name_5" onclick= "click_select('5')">대표전화</button>
+							<button class="btn btn-secondary" id = "process_name_6" onclick= "click_select('6')">업체구분</button>
 						</th>
 						<th>
 						<input type = "text" class = "form-control" id = "searchbox">	
@@ -207,9 +208,8 @@ th.no-sort {
 						<button class="btn btn-success" onclick= "click_search()">조회</button>
 						</th>	
 						</tr>
-						</table>
-						
-						<%=row[0].code%>
+						</table>						
+					
                             <div class="table-responsive">
 								<form action="/employee_info_delete" name="list_form" id="list_form" method="post">
                                 <table class="table table-bordered" id="order_data_table" width="100%" cellspacing="0">
@@ -222,24 +222,23 @@ th.no-sort {
 											<th>대표전화</th>
 											<th>기타전화</th>
 											<th>팩스번호</th>
-											<th>사 업 장 주 소</th>
-											
+											<th>사 업 장 주 소</th>											
                                         </tr>
                                     </thead>
                          
                                     <tbody>
-										<% for (let i = 0; i < row.length; i++) { %>
-											<tr>
-											  <td style="vertical-align: middle;"><input type="checkbox"></td>
-											  <td><%= row[i].code %></td>
-											  <td><%= row[i].company %></td>
-											  <td><%= row[i].ceo %></td>
-											  <td><%= row[i].tel %></td>
-											  <td><%= row[i].ect_tel %></td>
-											  <td><%= row[i].fax %></td>
-											  <td><%= row[i].address %></td>
-											</tr>
-										  <% } %>
+									<% for(var i = 0; i<row.length; i++){ %>
+									<tr>
+										<td style = "vertical-align: middle;"><input type = "checkbox"></td>
+										<td><%=row[i].code%></td>	
+										<td><%=row[i].company%></td>	
+										<td><%=row[i].ceo%></td>	
+										<td><%=row[i].tel%></td>	
+										<td><%=row[i].ect_tel%></td>	
+										<td><%=row[i].fax%></td>	
+										<td><%=row[i].address%></td>	
+									</tr>						
+									<% } %>
 									
                                     </tbody>
                                 </table>
@@ -282,13 +281,13 @@ th.no-sort {
 
   <!-- Bootstrap core JavaScript-->
   <!-- <script src="vendor/jquery/jquery.min.js"></script> -->
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="js/sb-admin-2.min.js"></script>
+  <script src="../../js/sb-admin-2.min.js"></script>
 
   <!-- Page level plugins -->
   <!-- <script src="vendor/datatables/jquery.dataTables.min.js"></script>
@@ -298,25 +297,11 @@ th.no-sort {
   <!-- <script src="js/demo/datatables-demo.js"></script> -->
 
 
-    <script>
+  <script>
 	var dataTable;	
-	document.getElementById('management_customer').style.background='khaki'; 
-	//여기서부터 날짜시작
-	var today = new Date(); 
-    var year = today.getFullYear(); 
-    var month = today.getMonth() + 1; 
-    var day = today.getDate(); 
-    if (month < 10) {
-    month = '0' + month;
-    }
-    if (day < 10) {
-    day = '0' + day;
-    }
-    var currentDate = year + '-' + month + '-' + day; // YYYY-MM-DD 형식으로 날짜 생성
-    document.getElementById('reg_date').value = currentDate; // 오늘 날짜를 input 요소의 value 속성에 할당
-	//날짜끝 + 날짜 데이터 넣는거
 
 	// 사이드바 불 들어오게 하는 함수 	
+	document.getElementById('management_customer').style.background='khaki'; 
 	
 	//기본 DATATABLE 세팅
 	$(document).ready(function() {
@@ -377,22 +362,31 @@ th.no-sort {
 				{
 					let ck_1 = ck_arr[ck_arr.length-1]
 					let ck_2 = ck_arr[ck_arr.length-2]
+					console.log(ck_1)
+					console.log(ck_2)
 					if(ck_1 == ck_2){
 						ck_arr =[]
 						ableInputs();
 						resetInputs();
-						daycombo();
-						var modifyButton = document.getElementById("modifyButton");
-						modifyButton.innerHTML = "저장";
-						modifyButton.className = "btn btn-primary";
-						modifyButton.id = "saveButton"
-						modifyButton.onclick = save;
-						
 					}
 					
 				}
 		});
 
+	//여기서부터 날짜시작
+  	var today = new Date(); 
+    var year = today.getFullYear(); 
+    var month = today.getMonth() + 1; 
+    var day = today.getDate(); 
+    if (month < 10) {
+    month = '0' + month;
+    }
+    if (day < 10) {
+    day = '0' + day;
+    }
+    var currentDate = year + '-' + month + '-' + day; // YYYY-MM-DD 형식으로 날짜 생성
+    document.getElementById('reg_date').value = currentDate; // 오늘 날짜를 input 요소의 value 속성에 할당
+	//날짜끝 + 날짜 데이터 넣는거
 
 	//reset 버튼 시작
 	function reset() {
@@ -400,8 +394,9 @@ th.no-sort {
 		resetInputs();
 		resetDataTableSelection();
 		change_save_button();
-		daycombo()
-		ck_arr =[]
+		document.getElementById('reg_date').value = currentDate;
+		document.getElementById('division').value = currentDate;
+		document.getElementById('cost').value = currentDate;
   }
 
   //인풋박스 다 지우는 펑션
@@ -411,12 +406,7 @@ th.no-sort {
       input.value = '';
     });
   }
-  //날짜 ,콤보박스 초기화 하는 함수
-  function daycombo() {
-	document.getElementById('reg_date').value = currentDate;
-	document.getElementById('division').value = currentDate;
-	document.getElementById('cost').value = currentDate;
-	}
+ 
   //DATATABLES 다 해제하는 함수
   function resetDataTableSelection() {
     // DataTable 선택 해제
