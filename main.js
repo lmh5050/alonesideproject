@@ -31,7 +31,6 @@ app.listen(PORT, "0.0.0.0", () => {
       host: 'ekfkawnl.synology.me',
       user: 'root',
       password: 'root',
-      database: 'deg_real',
       port: '49153',
   });
   
@@ -42,7 +41,6 @@ app.listen(PORT, "0.0.0.0", () => {
       host: 'ekfkawnl.synology.me',
       user: 'root',
       password: 'root',
-      database: 'deg_real',
       port: '49153',
       dateStrings: 'date',
       connectionLimit: 10,
@@ -72,7 +70,7 @@ app.listen(PORT, "0.0.0.0", () => {
                                         ect_tel,
                                         fax,                    
                                         address
-                                FROM customer_info`)
+                                FROM erp_dg.customer_info`)
     res.render('management_customer',{row : row});
 }); 
 
@@ -84,7 +82,7 @@ app.get('/management_customer', async (req,res) => {
                                         ect_tel,
                                         fax,                    
                                         address
-                                FROM customer_info`)
+                                FROM erp_dg.customer_info`)
     res.render('management_customer',{row : row});
 }); 
 
@@ -135,14 +133,14 @@ app.post("/customer_search", async (req, res) => {
                                                         address,
                                                         charge,
                                                         ect
-                                                 FROM customer_info
+                                                 FROM erp_dg.customer_info
                                                  WHERE code ='${req.body.code}'`)                                     
 res.send({customer_search_row: customer_search_row});
 });
 
 app.post("/customer_save", async (req, res) => {
     console.log(req.body.code)
-    let check_code = await asyncQuery(`SELECT code FROM customer_info WHERE code = '${req.body.code}'`)
+    let check_code = await asyncQuery(`SELECT code FROM erp_dg.customer_info WHERE code = '${req.body.code}'`)
     console.log(check_code.length)
     if (check_code.length >= 1)
     {
@@ -150,7 +148,7 @@ app.post("/customer_save", async (req, res) => {
     }
     else
     {
-    let customer_save_row = await asyncQuery(`INSERT INTO customer_info (code,
+    let customer_save_row = await asyncQuery(`INSERT INTO erp_dg.customer_info (code,
                                                                          division,
                                                                          company,
                                                                          nickname,
@@ -191,7 +189,7 @@ res.send('y');
 
 app.post("/modify_save", async (req, res) => {
     console.log(req.body)
-    let customer_save_row = await asyncQuery(`UPDATE customer_info 
+    let customer_save_row = await asyncQuery(`UPDATE erp_dg.customer_info 
                                               SET code = '${req.body.code}',
                                                    division = '${req.body.division}',
                                                    company = '${req.body.nickname}',
@@ -243,7 +241,24 @@ app.get('/example', (req,res) => {
     res.render('example');
 });
 
+app.get('/exam1', (req,res) => {
+    res.render('exam1');
+});
+
 app.get('/input' , async (req,res) => {
 
     res.render('input')
+});
+
+app.get('/input_ex' , async (req,res) => {
+    let row = await asyncQuery(`SELECT no,
+                                       id,
+                                       pass,
+                                       name,
+                                       sosok,
+                                       score,
+                                       grade
+                                 FROM test.example `)
+    console.log(row)
+    res.render('input_ex',{row:row})
 });

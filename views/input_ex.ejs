@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>index</title>
+</head>
+<style>
+  .my-table {
+    border-collapse: separate;
+    border: 1px solid black;
+  }
+
+  .my-table th,
+  .my-table td {
+    border: 1px solid black;
+    text-align: center;
+  }
+</style>
+<body>
+  <h1>표로 만들어 봅시다</h1>
+  <table class="my-table" id = "example">
+    <thead>
+      <tr>
+        <th>넘버</th>
+        <th>아이디</th>
+        <th>패스워드</th>
+        <th>이름</th>
+        <th>소속</th>
+        <th>점수</th>
+        <th>학년</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for (var i = 0; i < row.length; i++) { %>
+        <tr>
+          <td><%= row[i].no %></td>
+          <td><%= row[i].id %></td>
+          <td><%= row[i].pass %></td>
+          <td><%= row[i].name %></td>
+          <td><%= row[i].sosok %></td>
+          <td><%= row[i].score %></td>
+          <td><%= row[i].grade %></td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+
+</body>
+</html>
+
