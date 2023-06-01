@@ -28,6 +28,7 @@
   <link href="../../vendor/datatables/gyu/dataTables.select.min.css" rel="stylesheet">
 
   <script src="../../vendor/datatables/gyu/qrcode.min.js"></script>
+  <script src="../../js/main_content.js"></script>
   <!-- <link href="vendor/datatables/gyu/qr_print.css" media="print" rel="stylesheet" /> -->
 
   <!-- <script src="vendor/datatables/gyu/dataTables.buttons.min.js"></script>
@@ -153,7 +154,7 @@ th.no-sort {
 				    <th style="text-align: center; vertical-align: middle;" >등록번호</th>
 				    <th><input type ="text" class = "form-control" id ="reg_no"></th>		
 					<th style="text-align: center; vertical-align: middle;">등록일자</th>
-				    <th><input type ="text" class = "form-control" value = "" id = "reg_date" disabled ></th>	
+				    <th><input class = "form-control" type = "date"id = "reg_date" disabled></th>	
 					</tr>
 				    <tr>
 					<th style="text-align: center; vertical-align: middle;">업태</th>
@@ -176,30 +177,30 @@ th.no-sort {
                   </thead>
                   <tbody>
                   </tbody>
-              </table>
-				<input type="hidden" value="<%=process%>" id="param_process">
-				<input type="hidden" value="<%=value%>" id="param_value">
+              </table>				
 							
 						<div style="display: flex; flex-direction: row; width: 100%; margin-bottom: 10px;justify-content: flex-end;">
 						  <div style="display: flex; flex-direction: row; width: 100%; margin-bottom: 10px; justify-content: space-between;">
 							  <div>
-								<button class="btn btn-primary" onclick="reset()">초기화</button>
+								<button class="btn btn-info" onclick="reset()">정리</button>
 							  </div>
 							  <div>
-								<button class="btn btn-primary" onclick="save()">저장</button>
+								<button class="btn btn-primary" id = "saveButton" onclick="save()">저장</button>
 							  </div>
 							</div>
 						</div>
 						<h2 class="m-0 font-weight-bold text-primary" >거래처 기초 자료 등록 현황</h2>	
+						<button class="btn btn-warning" style = "float :left" onclick="go_home()">전체조회</button>	
 						<table style="float:right; margin-top:10px ; margin-bottom:10px">
 						<tr>
 						<th>
-							<button class="btn btn-primary" id = "process_name_1" onclick= "click_select('1')">코드순</button>
-							<button class="btn btn-secondary" id = "process_name_2" onclick= "click_select('2')">상호순(약)</button>
-							<button class="btn btn-secondary" id = "process_name_3" onclick= "click_select('3')">상호순(정)</button>
-							<button class="btn btn-secondary" id = "process_name_4" onclick= "click_select('4')">대표자명</button>
-							<button class="btn btn-secondary" id = "process_name_5" onclick= "click_select('5')">대표전화</button>
-							<button class="btn btn-secondary" id = "process_name_6" onclick= "click_select('6')">업체구분</button>
+						
+						<button class="btn btn-primary" style = "margin-right: 5px" id = "process_name_1" onclick= "click_select('1')">코드별</button>
+						<button class="btn btn-secondary" style = "margin-right: 5px" id = "process_name_2" onclick= "click_select('2')">약식상호</button>
+						<button class="btn btn-secondary" style = "margin-right: 5px" id = "process_name_3" onclick= "click_select('3')">정식상호</button>
+						<button class="btn btn-secondary" style = "margin-right: 5px" id = "process_name_4" onclick= "click_select('4')">대표자명</button>
+						<button class="btn btn-secondary" style = "margin-right: 5px" id = "process_name_5" onclick= "click_select('5')">대표전화</button>
+						<button class="btn btn-secondary" style = "margin-right: 10px" id = "process_name_6" onclick= "click_select('6')">업체구분</button>
 						</th>
 						<th>
 						<input type = "text" class = "form-control" id = "searchbox">	
@@ -211,40 +212,47 @@ th.no-sort {
 						</table>						
 					
                             <div class="table-responsive">
-								<form action="/employee_info_delete" name="list_form" id="list_form" method="post">
+								<form action="/customer_info_delete2" name="list_form" id="list_form" method="post">
+									<input type="hidden" value="<%=process%>" id="param_process" class="param_process" name="param_process">
+									<input type="hidden" value="<%=value%>" id="param_value" class="param_value" name="param_value">
                                 <table class="table table-bordered" id="order_data_table" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
 											<th style="width:3%; vertical-align: middle;"><input type="checkbox" name="chAll" id="chAll"></th>	
                                             <th>코드</th>
-                                            <th>정식상호명</th>
+											<th>약식상호</th>
+                                            <th>정식상호</th>
                                             <th>대표자명</th>
 											<th>대표전화</th>
+											<th>업체구분</th>
 											<th>기타전화</th>
 											<th>팩스번호</th>
-											<th>사 업 장 주 소</th>											
+											<th>사 업 장 주 소</th>
+											
                                         </tr>
                                     </thead>
                          
                                     <tbody>
-									<% for(var i = 0; i<row.length; i++){ %>
-									<tr>
-										<td style = "vertical-align: middle;"><input type = "checkbox"></td>
-										<td><%=row[i].code%></td>	
-										<td><%=row[i].company%></td>	
-										<td><%=row[i].ceo%></td>	
-										<td><%=row[i].tel%></td>	
-										<td><%=row[i].ect_tel%></td>	
-										<td><%=row[i].fax%></td>	
-										<td><%=row[i].address%></td>	
-									</tr>						
-									<% } %>
+										<% for (let i = 0; i < row.length; i++) { %>
+											<tr>
+											  <td style="vertical-align: middle;"><input type="checkbox" class="chList" name="chList" value="<%=row[i].no%>"></td>
+											  <td><%= row[i].code %></td>
+											  <td><%= row[i].nickname %></td>
+											  <td><%= row[i].company %></td>
+											  <td><%= row[i].ceo %></td>
+											  <td><%= row[i].tel %></td>
+											  <td><%= row[i].division %></td>	
+											  <td><%= row[i].ect_tel %></td>
+											  <td><%= row[i].fax %></td>
+											  <td><%= row[i].address %></td>
+											</tr>
+										  <% } %>
 									
                                     </tbody>
                                 </table>
 								<div style = "float : right; padding-top : 10px">
 								<!-- <button class="btn btn-primary btn-danger" name ="delete_btn" id ="delete_btn" sytle = "float:right">삭제</button> -->
-								<button type="button" onclick="stock_manage_delete()" class="btn btn-primary btn-danger" style="float:right;">삭제</button>
+								<button type="button" onclick="customer_delete()" class="btn btn-primary btn-danger" style="float:right;">삭제</button>
 								</div>
 								</form>
 							</div>
@@ -298,10 +306,38 @@ th.no-sort {
 
 
   <script>
+	let process = '1';
+	// 페이지 로드 시 조회 데이터 가져오기	
+	window.onload = function(){
+		let param_process = document.getElementById('param_process').value;
+		let param_value = document.getElementById('param_value').value;
+
+		console.log(param_process);
+		console.log(param_value);
+		$('#searchbox').attr('value',param_value);
+		process = param_process;
+		click_select(param_process);
+
+	}		 
+	  
 	var dataTable;	
+	document.getElementById('management_customer').style.background='khaki'; 
+	//여기서부터 날짜시작
+	var today = new Date(); 
+    var year = today.getFullYear(); 
+    var month = today.getMonth() + 1; 
+    var day = today.getDate(); 
+    if (month < 10) {
+    month = '0' + month;
+    }
+    if (day < 10) {
+    day = '0' + day;
+    }
+    var currentDate = year + '-' + month + '-' + day; // YYYY-MM-DD 형식으로 날짜 생성
+    document.getElementById('reg_date').value = currentDate; // 오늘 날짜를 input 요소의 value 속성에 할당
+	//날짜끝 + 날짜 데이터 넣는거
 
 	// 사이드바 불 들어오게 하는 함수 	
-	document.getElementById('management_customer').style.background='khaki'; 
 	
 	//기본 DATATABLE 세팅
 	$(document).ready(function() {
@@ -311,7 +347,7 @@ th.no-sort {
 	select: {
 		style: 'single'
 	},
-	searching:false,
+	searching: false,
 	columnDefs: [{
 			targets: [0],
 			className: 'no-sort',
@@ -362,43 +398,36 @@ th.no-sort {
 				{
 					let ck_1 = ck_arr[ck_arr.length-1]
 					let ck_2 = ck_arr[ck_arr.length-2]
-					console.log(ck_1)
-					console.log(ck_2)
 					if(ck_1 == ck_2){
 						ck_arr =[]
 						ableInputs();
 						resetInputs();
+						daycombo();
+						var modifyButton = document.getElementById("modifyButton");
+						modifyButton.innerHTML = "저장";
+						modifyButton.className = "btn btn-primary";
+						modifyButton.id = "saveButton"
+						modifyButton.onclick = save;
 					}
 					
 				}
 		});
 
-	//여기서부터 날짜시작
-  	var today = new Date(); 
-    var year = today.getFullYear(); 
-    var month = today.getMonth() + 1; 
-    var day = today.getDate(); 
-    if (month < 10) {
-    month = '0' + month;
-    }
-    if (day < 10) {
-    day = '0' + day;
-    }
-    var currentDate = year + '-' + month + '-' + day; // YYYY-MM-DD 형식으로 날짜 생성
-    document.getElementById('reg_date').value = currentDate; // 오늘 날짜를 input 요소의 value 속성에 할당
-	//날짜끝 + 날짜 데이터 넣는거
 
 	//reset 버튼 시작
 	function reset() {
-		ableInputs();
-		resetInputs();
-		resetDataTableSelection();
-		change_save_button();
-		document.getElementById('reg_date').value = currentDate;
-		document.getElementById('division').value = currentDate;
-		document.getElementById('cost').value = currentDate;
-  }
+		   ableInputs();
+		   resetInputs();
+		   resetDataTableSelection();
+		   change_save_button();
+		   daycombo()
+		   ck_arr =[]
+		 
+	  }
 
+  function go_home(){
+	   window.location.href=`/management_customer`  	
+  }
   //인풋박스 다 지우는 펑션
   function resetInputs() {
     var inputs = document.querySelectorAll('input:not(#searchbox):not(#reg_date)');
@@ -407,6 +436,13 @@ th.no-sort {
     });
   }
  
+    //날짜 ,콤보박스 초기화 하는 함수
+  function daycombo() {
+	document.getElementById('reg_date').value = currentDate;
+	document.getElementById('division').value = currentDate;
+	document.getElementById('cost').value = currentDate;
+	}	  
+	  
   //DATATABLES 다 해제하는 함수
   function resetDataTableSelection() {
     // DataTable 선택 해제
@@ -472,9 +508,9 @@ th.no-sort {
 
 	//클릭시 뜨는 내용 인풋박스 전부다 disabled 되는 함수
 	function disabledInputs() { 
-    var inputs = document.querySelectorAll('input:not(#searchbox):not(#reg_date), select:not(#yourComboBoxId)');
+    var inputs = document.querySelectorAll('input:not(#searchbox):not(#reg_date):not(#param_process):not(#param_value), select:not(#yourComboBoxId)');
     inputs.forEach(function(input) {
-        if (input.type !== 'checkbox' && input.name !== 'order_data_table_length') {
+        if (input.type !== 'checkbox' && input.name !== 'order_data_table_length' ) {
             input.disabled = true;
         }
     });
@@ -527,6 +563,10 @@ th.no-sort {
 				alert("저장이 완료되었습니다.")
 				location.reload();
 			}
+			else if (ret == 'n')
+			{
+				alert("중복된 업체코드 입니다.")
+			}
 		}
 		
 	}
@@ -570,7 +610,7 @@ th.no-sort {
 	}
 
 	// 조회 버튼 클릭 시 해당 버튼id 저장
-	let process = '1';
+	
 	
 	function click_select(n){
 		if(n=='1'){		  
@@ -648,7 +688,27 @@ th.no-sort {
 		  alert("검색어를 입력해주세요.");
 	  }	  
 	  
-	}	
+	}
+	  	  
+	// 체크박스 ALL / NOT ALL
+	var check_list = '';
+	  $('#chAll').on('click', function() {
+    if ($(this).prop('checked')) {
+      $('.chList:visible').prop('checked', true);
+    } else {
+      $('.chList:visible').prop('checked', false);
+    }
+    })		
+		
+	// 삭제버튼 클릭 시	
+	function customer_delete(){
+		var result = confirm("삭제 하시겠습니까?");
+		if(result){	//등록 시작						
+			document.getElementById('list_form').submit();
+		}else{			
+			
+		}		
+	}		  
   </script>
 </body>
 

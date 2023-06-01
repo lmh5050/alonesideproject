@@ -89,8 +89,6 @@ app.get('/management_customer', async (req,res) => {
 }); 
 
 app.get('/management_customer_detail/:process/:value', async (req, res) => {
-	console.log('process' + req.params.process);
-	console.log('value' + req.params.value);
 	
 	let process = req.params.process;
 	let value = req.params.value;
@@ -116,7 +114,6 @@ app.get('/management_customer_detail/:process/:value', async (req, res) => {
 	
 	let row = await asyncQuery(sql2);
 	
-	console.log("sql2:" + sql2);
 	
 	res.render('management_customer_detail',{row:row,process:process,value:value});
 });
@@ -144,6 +141,15 @@ res.send({customer_search_row: customer_search_row});
 });
 
 app.post("/customer_save", async (req, res) => {
+    console.log(req.body.code)
+    let check_code = await asyncQuery(`SELECT code FROM customer_info WHERE code = '${req.body.code}'`)
+    console.log(check_code.length)
+    if (check_code.length >= 1)
+    {
+        res.send('n');
+    }
+    else
+    {
     let customer_save_row = await asyncQuery(`INSERT INTO customer_info (code,
                                                                          division,
                                                                          company,
@@ -180,6 +186,7 @@ app.post("/customer_save", async (req, res) => {
                                                   req.body.ect
                                                 ])
 res.send('y');
+}
 });
 
 app.post("/modify_save", async (req, res) => {
@@ -205,43 +212,27 @@ app.post("/modify_save", async (req, res) => {
                                                 )
 res.send('y');
 });
-/*
-app.post("/laiser_select", async (req, res) => {
-	 let selected_row_wait = await asyncQuery(`SELECT b.no,
-											   b.file_name,
-											   b.key_no,
-											   a.shipping_date,
-											   a.work_no,
-											   b.quality,
-											   b.thickness,
-											   b.materials_max,
-											   a.status 
-										FROM     tech_in.process as a
-										LEFT JOIN	tech_in.operation as b
-										ON a.key_no  = b.key_no 
-										WHERE a.key_no = '${req.body.key_no}' and a.status = 10
-				   `)
-	  let selected_row_ing = await asyncQuery(`SELECT b.no,
-											   b.file_name,
-											   b.key_no,
-											   a.shipping_date,
-											   a.work_no,
-											   b.quality,
-											   b.thickness,
-											   b.materials_max,
-											   a.status 
-										FROM     tech_in.process as a
-										LEFT JOIN	tech_in.operation as b
-										ON a.key_no  = b.key_no 
-										WHERE a.key_no = '${req.body.key_no}' and a.status = 11
-				   `)
-	
-res.send({
-        selected_row_wait: selected_row_wait,
-        selected_row_ing: selected_row_ing
-    });
+
+app.post('/customer_info_delete', async (req, res) => {
+	console.log(req.body)
+    if (req.body.chList) {
+		const sParm =
+			typeof req.body.chList == 'string' ? req.body.chList : req.body.chList.join(',');
+		
+		if (sParm != '') {
+			if ((await asyncQuery(`DELETE FROM customer_info WHERE no IN (${sParm})`))) {
+				res.send(`<script>alert('삭제가 완료 되었습니다.'); location='/management_customer';</script>`);				
+			} else {
+				return res.send(`<script>alert('삭제 실패'); location='/management_customer';</script>`);
+			}
+		} else {
+			res.send(
+				`<script>alert(' 내역이 존재하여 삭제할 수 없습니다.'); location='/management_customer';</script>`
+			);
+		}
+	}
+	res.send(`<script>alert('체크박스를 선택해주세요.'); location='/management_customer';</script>`);			
 });
-*/
 /*  
 app.get('/', async (req,res) => {
     let arr = await asyncQuery(`select * from example`)
